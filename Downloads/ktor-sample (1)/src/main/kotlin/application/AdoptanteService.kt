@@ -1,6 +1,5 @@
 package com.patitas_web.application
 
-import com.patitas_web.domain.Adoptante
 import com.patitas_web.domain.AdoptanteRequest
 import com.patitas_web.domain.AdoptanteResponse
 import com.patitas_web.infrastructure.DatabaseFactory.dbQuery
@@ -8,23 +7,23 @@ import com.patitas_web.infrastructure.tables.AdoptantesTable
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import java.time.format.DateTimeFormatter
-
 
 class AdoptanteService {
 
-    private fun todoptanteResponse(row: ResultRow): AdoptanteResponse = AdoptanteResponse(
-        id =row [AdoptantesTable.id ],
+    private fun toAdoptanteResponse(row: ResultRow): AdoptanteResponse = AdoptanteResponse(
+        id = row[AdoptantesTable.id],
         nombreCompleto = row[AdoptantesTable.nombreCompleto],
         telefono = row[AdoptantesTable.telefono],
         edad = row[AdoptantesTable.edad],
         ocupacion = row[AdoptantesTable.ocupacion],
-
+        fechaCreacion = row[AdoptantesTable.fechaCreacion].format(DateTimeFormatter.ISO_DATE_TIME)
     )
-    suspend fun findAll(): List<Adoptante> = dbQuery {
+
+    suspend fun findAll(): List<AdoptanteResponse> = dbQuery {
         AdoptantesTable.selectAll().map(::toAdoptanteResponse)
     }
+
     suspend fun create(request: AdoptanteRequest): AdoptanteResponse {
         val result = dbQuery {
             val insertStatement = AdoptantesTable.insert { table ->

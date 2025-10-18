@@ -1,9 +1,8 @@
 package com.patitas_web.infrastructure.tables
 
-import jdk.javadoc.internal.doclets.formats.html.Table
-import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.Table // <-- Se corrigió el import
 import org.jetbrains.exposed.sql.javatime.datetime
-
+import java.time.LocalDateTime
 
 object AdoptantesTable : Table("adoptantes") {
     val id = integer("id").autoIncrement()
@@ -25,6 +24,8 @@ object AdoptantesTable : Table("adoptantes") {
     val responsabilidadesMascota = text("responsabilidades_mascota")
     val opinionEsterilizacion = text("opinion_esterilizacion")
 
+    // Columna que faltaba para la fecha
+    val fechaCreacion = datetime("fecha_creacion").default(LocalDateTime.now())
 
     override val primaryKey = PrimaryKey(id)
 }

@@ -1,7 +1,7 @@
 package com.patitas_web
 
 import com.patitas_web.infrastructure.DatabaseFactory
-import com.patitas_web.presentation.configureAdoptanteRoutes // <-- IMPORTANTE
+import com.patitas_web.presentation.configureAdoptanteRoutes
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
