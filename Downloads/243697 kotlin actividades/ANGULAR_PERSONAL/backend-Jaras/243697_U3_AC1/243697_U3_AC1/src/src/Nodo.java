@@ -1,3 +1,5 @@
+package src;
+
 public class Nodo {
     private Estudiante dato;
     private Nodo Izq;
